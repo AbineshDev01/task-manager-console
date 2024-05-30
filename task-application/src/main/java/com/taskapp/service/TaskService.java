@@ -3,7 +3,6 @@ package com.taskapp.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 import com.taskapp.model.Task;
 
@@ -41,8 +40,6 @@ public class TaskService {
             if (!status.isEmpty()) task.setStatus(status);
             if (!priority.isEmpty()) task.setPriority(priority);
             System.out.println("Task edited");
-        } else {
-            System.out.println("Task not found with Id: " + taskId);
         }
     }
 
@@ -51,8 +48,6 @@ public class TaskService {
         if (task != null) {
             tasks.remove(task);
             System.out.println("Task deleted");
-        } else {
-            System.out.println("Task not found with Id: " + taskId);
         }
     }
 
@@ -69,23 +64,28 @@ public class TaskService {
     public String selectPriority(Scanner scanner, String currentPriority) {
         while (true) {
             try {
-                System.out.println("1. High");
-                System.out.println("2. Medium");
-                System.out.println("3. Low");
+                System.out.println("1) High");
+                System.out.println("2) Medium");
+                System.out.println("3) Low");
                 String input = scanner.nextLine();
                 if (input.isEmpty()) {
                     return currentPriority;
                 }
                 int choice = Integer.parseInt(input);
+                if(choice > 3) {
+                    System.out.println("\n--------------------------------------------------");
+                    System.out.println("Invalid input. Please enter a number between 1 - 3");
+                    System.out.println("--------------------------------------------------");
+                }
                 switch (choice) {
                     case 1: return "High";
                     case 2: return "Medium";
                     case 3: return "Low";
-                    default:
-                        System.out.println("Invalid choice. Please enter 1, 2, or 3.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println("\n--------------------------------------------------");
+                System.out.println("Invalid input. Please enter a number between 1 - 3");
+                System.out.println("--------------------------------------------------");
             }
         }
     }
@@ -93,23 +93,28 @@ public class TaskService {
     public String selectStatus(Scanner scanner, String currentStatus) {
         while (true) {
             try {
-                System.out.println("1. Pending");
-                System.out.println("2. In Progress");
-                System.out.println("3. Completed");
+                System.out.println("1) Pending");
+                System.out.println("2) In Progress");
+                System.out.println("3) Completed");
                 String input = scanner.nextLine();
                 if (input.isEmpty()) {
                     return currentStatus;
                 }
                 int choice = Integer.parseInt(input);
+                if(choice > 3) {
+                    System.out.println("\n--------------------------------------------------");
+                    System.out.println("Invalid input. Please enter a number between 1 - 3");
+                    System.out.println("--------------------------------------------------");
+                }
                 switch (choice) {
                     case 1: return "Pending";
                     case 2: return "In Progress";
                     case 3: return "Completed";
-                    default:
-                        System.out.println("Invalid choice. Please enter 1, 2, or 3.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println("\n--------------------------------------------------");
+                System.out.println("Invalid input. Please enter a number between 1 - 3");
+                System.out.println("--------------------------------------------------");
             }
         }
     }

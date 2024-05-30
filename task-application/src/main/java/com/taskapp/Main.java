@@ -24,10 +24,12 @@ public class Main {
 
             try {
                 choice = scanner.nextInt();
-                scanner.nextLine(); // consume the newline character
+                scanner.nextLine();
             } catch (InputMismatchException e) {
+                System.out.println("\n-----------------------------------------------------");
                 System.out.println("Invalid input. Please enter a number between 1 and 7.");
-                scanner.nextLine(); // clear the invalid input
+                System.out.println("-----------------------------------------------------");
+                scanner.nextLine();
                 continue;
             }
 
@@ -48,23 +50,29 @@ public class Main {
                         System.out.println("Enter the Task Id:");
                         Integer taskIdForTask = scanner.nextInt();
                         if (!taskService.isIdPresent(taskIdForTask)) {
+                            System.out.println("\n-------------------------");
                             System.out.println("Task not found with Id: " + taskIdForTask);
+                            System.out.println("-------------------------");
                         } else {
                             Task task = taskService.getTask(taskIdForTask);
                             System.out.println(task.toString());
                         }
                     } catch (InputMismatchException e) {
+                        System.out.println("\n----------------------------------------------");
                         System.out.println("Invalid Task Id. Please enter a valid integer.");
-                        scanner.nextLine(); // clear the invalid input
+                        System.out.println("----------------------------------------------");
+                        scanner.nextLine();
                     }
                     break;
                 case 3:
                     try {
                         System.out.println("Enter the Task Id:");
                         int taskIdForEdit = scanner.nextInt();
-                        scanner.nextLine(); // consume the newline character
+                        scanner.nextLine();
                         if (!taskService.isIdPresent(taskIdForEdit)) {
+                            System.out.println("\n-------------------------");
                             System.out.println("Task not found with Id: " + taskIdForEdit);
+                            System.out.println("-------------------------");
                         } else {
                             Task existingTask = taskService.getTask(taskIdForEdit);
                             System.out.println("Enter new Title (Leave blank to keep existing):");
@@ -78,8 +86,10 @@ public class Main {
                             taskService.editTask(taskIdForEdit, newTitle, newDescription, newStatus, newPriority);
                         }
                     } catch (InputMismatchException e) {
+                        System.out.println("\n----------------------------------------------");
                         System.out.println("Invalid Task Id. Please enter a valid integer.");
-                        scanner.nextLine(); // clear the invalid input
+                        System.out.println("----------------------------------------------");
+                        scanner.nextLine();
                     }
                     break;
                 case 4:
@@ -87,44 +97,64 @@ public class Main {
                         System.out.println("Enter the Task Id:");
                         int taskIdForDelete = scanner.nextInt();
                         if (!taskService.isIdPresent(taskIdForDelete)) {
+                            System.out.println("\n-------------------------");
                             System.out.println("Task not found with Id: " + taskIdForDelete);
+                            System.out.println("-------------------------");
                         } else {
                             taskService.deleteTask(taskIdForDelete);
                         }
                     } catch (InputMismatchException e) {
+                        System.out.println("\n----------------------------------------------");
                         System.out.println("Invalid Task Id. Please enter a valid integer.");
-                        scanner.nextLine(); // clear the invalid input
+                        System.out.println("----------------------------------------------");
+                        scanner.nextLine();
                     }
                     break;
                 case 5:
-                    System.out.println("Tasks\n");
                     List<Task> allTasks = taskService.getAllTasks();
                     if (allTasks.isEmpty()) {
+                        System.out.println("\n--------------");
                         System.out.println("Tasks is empty");
+                        System.out.println("--------------");
+                        System.out.println("");
                     } else {
+                        System.out.println("---------------------------------------------------------------");
+                        System.out.println("\t\t\t   Tasks");
+                        System.out.println("---------------------------------------------------------------");
                         for (Task task : allTasks) {
                             System.out.println(task.toString());
                         }
+                        System.out.println("---------------------------------------------------------------");
                     }
                     break;
                 case 6:
-                    System.out.println("Select priority:");
+                    System.out.println("\n---------------");
+                    System.out.println("Select priority");
+                    System.out.println("---------------");
                     String prioritySelect = taskService.selectPriority(scanner, "");
-                    System.out.println("Tasks with " + prioritySelect);
                     List<Task> tasksWithPriority = taskService.getTasksByPriority(prioritySelect);
                     if (!tasksWithPriority.isEmpty()) {
+                        System.out.println("-----------------------------");
+                        System.out.println("Tasks with " + prioritySelect);
+                        System.out.println("-----------------------------");
                         for (Task printPriorityTask : tasksWithPriority) {
                             System.out.println(printPriorityTask.toString());
                         }
                     } else {
+                        System.out.println("\n--------------");
                         System.out.println("Tasks is empty");
+                        System.out.println("--------------");
                     }
                     break;
                 case 7:
-                    System.out.println("Exiting...\n");
+                    System.out.println("\n----------");
+                    System.out.println("Exiting...");
+                    System.out.println("----------");
                     break;
                 default:
+                    System.out.println("\n------------------");
                     System.out.println("Invalid Choice....");
+                    System.out.println("------------------\n");
                     break;
             }
 
