@@ -3,6 +3,7 @@ package com.taskapp;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
 import com.taskapp.model.Task;
 import com.taskapp.service.TaskService;
 
@@ -55,7 +56,9 @@ public class Main {
                             System.out.println("-------------------------");
                         } else {
                             Task task = taskService.getTask(taskIdForTask);
+                            System.out.println("\n" + "-".repeat(task.toString().length()));
                             System.out.println(task.toString());
+                            System.out.println("-".repeat(task.toString().length()));
                         }
                     } catch (InputMismatchException e) {
                         System.out.println("\n----------------------------------------------");
@@ -118,13 +121,13 @@ public class Main {
                         System.out.println("--------------");
                         System.out.println("");
                     } else {
-                        System.out.println("---------------------------------------------------------------");
-                        System.out.println("\t\t\t   Tasks");
-                        System.out.println("---------------------------------------------------------------");
+                        System.out.println("\n" + "-".repeat(getMaxStringTask(allTasks).length()));
+                        System.out.println("\t\t\t\tTasks");
+                        System.out.println("-".repeat(getMaxStringTask(allTasks).length()));
                         for (Task task : allTasks) {
                             System.out.println(task.toString());
                         }
-                        System.out.println("---------------------------------------------------------------");
+                        System.out.println("-".repeat(getMaxStringTask(allTasks).length()));
                     }
                     break;
                 case 6:
@@ -134,12 +137,13 @@ public class Main {
                     String prioritySelect = taskService.selectPriority(scanner, "");
                     List<Task> tasksWithPriority = taskService.getTasksByPriority(prioritySelect);
                     if (!tasksWithPriority.isEmpty()) {
-                        System.out.println("-----------------------------");
-                        System.out.println("Tasks with " + prioritySelect);
-                        System.out.println("-----------------------------");
+                        System.out.println("\n" + "-".repeat(getMaxStringTask(tasksWithPriority).length()));
+                        System.out.println("\tTasks with " + prioritySelect);
+                        System.out.println("-".repeat(getMaxStringTask(tasksWithPriority).length()));
                         for (Task printPriorityTask : tasksWithPriority) {
                             System.out.println(printPriorityTask.toString());
                         }
+                        System.out.println("-".repeat(getMaxStringTask(tasksWithPriority).length()));
                     } else {
                         System.out.println("\n--------------");
                         System.out.println("Tasks is empty");
@@ -160,5 +164,18 @@ public class Main {
 
         } while (choice == null || choice != 7);
         scanner.close();
+    }
+
+    private static String getMaxStringTask(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            return "";
+        }
+        Task maxTask = tasks.get(0);
+        for (Task task : tasks) {
+            if (task.getTitle().length() > maxTask.getTitle().length()) {
+                maxTask = task;
+            }
+        }
+        return maxTask.toString();
     }
 }
